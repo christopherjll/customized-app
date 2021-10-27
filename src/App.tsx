@@ -1,25 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { AppProvider } from "./AppProvider";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
+import { Dashboard, DetailsPage } from "./containers";
+import "./App.css";
+import "react-grid-layout/css/styles.css";
+import "react-resizable/css/styles.css";
+
+const Test = () => <h1>test</h1>;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppProvider>
+      <Router>
+        <Switch>
+          <Route exact path="/:id/view" component={DetailsPage} />
+          <Route exact path="/:id/edit" component={Test} />
+          <Route path="/" component={Dashboard} />
+          <Redirect from="*" to="/" />
+        </Switch>
+      </Router>
+    </AppProvider>
   );
 }
 
